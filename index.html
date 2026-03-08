@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portefolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <style>
+    :root {
+      --primary: #00f0ff;       /* Cyan néon */
+      --primary-dark: #00b7eb;
+      --secondary: #ff00aa;     /* Magenta punchy */
+      --accent: #39ff14;        /* Vert lime */
+      --text: #e0f7ff;
+      --text-light: #a5d8ff;
+      --bg: #0a0015;
+      --card-bg: #140028;
+      --white: #ffffff;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0015 0%, #140028 50%, #001f3f 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(0,240,255,0.08) 0%, transparent 60%);
+      animation: pulse 12s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.4; }
+      100% { transform: scale(1.4); opacity: 0.15; }
+    }
+
+    .hero-content { max-width: 900px; position: relative; z-index: 2; }
+
+    .hero h1 {
+      font-size: clamp(3rem, 9vw, 6rem);
+      margin-bottom: 1rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero h2 { font-size: 1.7rem; font-weight: 400; opacity: 0.92; margin-bottom: 2.5rem; }
+
+    .social-links a {
+      color: var(--primary);
+      font-size: 2rem;
+      margin: 0 16px;
+      transition: all 0.4s;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-8px) scale(1.15);
+      color: var(--secondary);
+      text-shadow: 0 0 20px var(--secondary);
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      margin: 12px;
+      transition: all 0.4s;
+      box-shadow: 0 10px 30px rgba(0,240,255,0.25);
+    }
+
+    .btn:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,240,255,0.4); }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover { background: var(--primary); color: var(--bg); }
+
+    section { padding: 110px 20px; max-width: 1200px; margin: 0 auto; }
+
+    h2.section-title {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 4rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+    }
+
+    h2.section-title::after {
+      content: "";
+      width: 100px; height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      position: absolute; bottom: -16px; left: 50%;
+      transform: translateX(-50%);
+      border-radius: 3px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(0,240,255,0.12);
+      transition: all 0.4s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .project-card:hover {
+      transform: translateY(-16px);
+      border-color: var(--primary);
+      box-shadow: 0 25px 60px rgba(0,240,255,0.18);
+    }
+
+    .project-img {
+      height: 240px;
+      background: linear-gradient(135deg, #001f3f, #140028);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: var(--text-light); font-weight: 500;
+      border-bottom: 1px solid rgba(0,240,255,0.1);
+    }
+
+    .project-content { padding: 2rem; }
+
+    .project-content h3 { margin-bottom: 1rem; color: var(--primary); font-size: 1.5rem; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.2rem; }
+
+    .tag {
+      background: rgba(0,240,255,0.12);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.9rem; font-weight: 500;
+      border: 1px solid rgba(0,240,255,0.2);
+    }
+ 
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-list { list-style: none; margin: 1.5rem 0; }
+
+    .about-list li { margin: 0.8rem 0; font-size: 1.1rem; }
+
+    .about-list li strong { color: var(--primary); }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 4rem; }
+      section { padding: 80px 15px; }
+    }
+
+    .contact-form { max-width: 680px; margin: 0 auto; }
+
+    input, textarea {
+      width: 100%;
+      padding: 16px 20px;
+      margin: 14px 0;
+      background: var(--card-bg);
+      border: 1px solid rgba(0,240,255,0.2);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 5px rgba(0,240,255,0.15);
+    }
+
+    footer {
+      background: #05000d;
+      color: var(--text-light);
+      text-align: center;
+      padding: 4rem 1rem;
+      margin-top: 5rem;
+      border-top: 1px solid rgba(0,240,255,0.08);
+    }
+
+    .skills{
+      width: 350px;
+    }
+    
+    .skill{margin: 20px 0;}
+
+    .skill p{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .progress{
+      background: local;
+      height: 10px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .bar{
+      height: 10px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #00f0ff;
+    }
+
+    .html{
+      width: 80%;
+      background: greenyellow;
+    }
+
+    .css{
+      width: 75%;
+      background: greenyellow;
+    }
+
+    .js{
+      width: 40%;
+      background: rgb(250, 107, 41);
+
+    }
+
+    .python{
+      width: 20%;
+      background: red;
+
+    }
+
+    .php{
+      width: 20%;
+      background: red;
+    }
+
+    </style>
+        
+</head>
+<body>
+    <header>
+        <div class="hero-content">
+            <h1>Bonjour, je suis Conné</h1>
+            <h2>Etudiant de  DA2I (Développement D'Application Internet et Intrenet) en université de l' <a href="https://www.emit.mg">EMIT</a> Fianarantsoa,passionné par le code et le technologie moderne</h2>
+            <div class="social-links">
+                <a href="https://github.com/CONNE04" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61576790669287" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/261334229958" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="mailto:hermancone91@gmal.com" target="_blank"><i class="fa-solide fa-envelope"></i></a>
+                
+
+            </div>
+            <div style="margin-top: 3rem">
+                <a href="#Formation" class="btn">Formation</a>
+                <a href="#Projet" class="btn btn-outline">Mes projets</a>
+                <a href="#Compétence" class="btn btn-outline">Mes compétences</a>
+                <a href="#Contact" class="btn btn-outline">Me contacter</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="apropos">
+        <h2 class="section-title">A propos de moi</h2>
+        <div class="about-girld">
+            <div>
+              <p style="text-align: center;">Je suis FITAHIANJANAHARY Jean Herimann Conné, vous pouvez m'appeler Conné, je suis un étudiant motivé et passionné par l'informatique et les nouvelles technologie</p> 
+              <p></p>
+
+              <div style="text-align: center;">
+                <img src="y.jpg" alt="Conné" style="width: 320px;height: 320px; border-radius: 50%;object-fit: cover; border: 6px solid rgba(0, 240, 255, 0.25); box-shadow: 0 20px 60px rgba(0, 240, 255, 0.2);">
+              </div>
+            </div>
+        </div>
+          
+    </section>
+    <section id="Projet" style="background: linear-gradient(to bottom, #0a0015, #0f0022);">
+      <h2 class="section-title">Mes projets</h2>
+      <div class="projects-grid">
+         <div class="project-card">
+          <div class="project-content">
+           <div class="project-img">Projet METU par groupe </div>
+           <h3>Création du site web</h3>
+           <p>Cette site web l'information de tous les membre de groupe</p>
+           <div class="tag">
+             <span class="tag">HTML,</span>
+             <span class="tag">CSS</span>
+           </div>
+         </div>
+        </div>
+        <div class="project-card">
+          <div class="project-content">
+           <div class="project-img">Portefolio personnel</div>
+           <h3>Ce site que tu regarde</h3>
+           <p>interface web simple et responsive</p>
+           <div class="tag">
+             <span class="tag">HTML,</span>
+             <span class="tag">CSS</span>
+           </div>
+         </div>
+        </div>
+      </div>  
+    </section>
+
+
+     
+    <section id="Formation" style="background: linear-gradient(to bottom, #0a0015, #0f0022);">
+      <h2 class="section-title">Formation</h2>
+      <ul>
+        <li><strong>2016-2017</strong>: CEPE au lycée Saint François d' Assises Ambodirano Fianarantsoa</li>
+        <li><strong>2021-2022</strong>: BEPC au lycée Fo Masin'i Jesoa Ranomafana</li>
+        <li><strong>2024-2025</strong>: BACC Serie C au <a href="https://www.omcfaa.org/projets/collsfx/" style="color: white;"> Lycée Saint François Xavier Ambatomena Fianarantsoa</a></li>
+        <li><strong>Présent</strong>: L1 en DA2I de l'université de l'<a href="https://www.emit.mg/" style="color: white;">EMIT Fianarantsoa </a> </li>
+      </ul>
+     
+    </section>
+
+    <section id="Compétence" style="background: linear-gradient(to bottom, #0a0015, #0f0022);">
+      <h2 class="section-title">Mes compétences</h2>
+      <div class="skill">
+        <p>HTML <SPan>80%</SPan></p>
+        <div class="progress">
+          <div class="bar html"></div>
+        </div>
+      <div class="skill">
+        <p>CSS <SPan>75%</SPan></p>
+        <div class="progress">
+          <div class="bar css"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <p>JS <SPan>40%</SPan></p>
+        <div class="progress">
+          <div class="bar js"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <p>Python <SPan>20%</SPan></p>
+        <div class="progress">
+          <div class="bar python"></div>
+        </div>
+      </div>
+       <div class="skill">
+        <p>PHP <SPan>20%</SPan></p>
+        <div class="progress">
+          <div class="bar php"></div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <section id="Contact" style="background: linear-gradient(to bottom, #0a0015, #0f0022);"></section>
+      <h2 class="section-title">Contactez moi</h2>
+      <form class="contact-form">
+        <input type="text" placeholder="ton nom" required>
+        <input type="email" placeholder="ton email" required>
+        <textarea rows="7" placeholder="ton message...stage,projet,colaboration?" required></textarea>
+        <button type="submit" class="btn" style="width: 100%; font-size: 1.2rem; margin-top: 1rem;">Envoyer</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>Conné-2026-étudiant en informatique-EMIT Fianarantsoa</p>
+      <p><strong>Tel:</strong>+261334229958</p>
+    </footer>
+
+    
+</body>
+</html>
